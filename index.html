@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taskboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <header class="top">
+    <div>
+      <h1>Taskboard</h1>
+      <p class="date" id="today"></p>
+    </div>
+    <div class="ring" aria-label="Progress">
+      <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="bg" cx="22" cy="22" r="18"/><circle class="fg" id="arc" cx="22" cy="22" r="18"/></svg>
+      <b id="pct">0%</b>
+    </div>
+    <button class="icon" id="theme" aria-label="Switch colour theme" title="Switch theme">◐</button>
+  </header>
+
+  <div class="stats" aria-live="polite">
+    <div><b id="sTotal">0</b><span>Total</span></div>
+    <div><b id="sOpen">0</b><span>Open</span></div>
+    <div><b id="sDone">0</b><span>Done</span></div>
+    <div class="warn"><b id="sLate">0</b><span>Overdue</span></div>
+  </div>
+
+  <form id="addForm" class="add">
+    <input id="title" type="text" placeholder="Add a task" maxlength="120" autocomplete="off" aria-label="Task title">
+    <select id="priority" aria-label="Priority"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select>
+    <input id="due" type="date" aria-label="Due date">
+    <input id="category" type="text" placeholder="Category" maxlength="24" list="cats" aria-label="Category">
+    <datalist id="cats"></datalist>
+    <button class="pri" type="submit">Add</button>
+  </form>
+  <p class="msg" id="msg" role="alert"></p>
+
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search…  " aria-label="Search tasks">
+    <div class="tabs" role="group" aria-label="Filter tasks">
+      <button data-f="all" aria-pressed="true">All</button><button data-f="open" aria-pressed="false">Open</button><button data-f="done" aria-pressed="false">Done</button>
+    </div>
+    <select id="sort" aria-label="Sort tasks"><option value="new">Newest</option><option value="due">Due date</option><option value="priority">Priority</option></select>
+  </div>
+
+  <ul id="list" class="list"></ul>
+  <div class="foot"><span id="left"></span><button id="clear">Clear completed</button></div>
+</main>
+
+<dialog id="dlg">
+  <form method="dialog" id="editForm">
+    <h2>Edit task</h2>
+    <label>Title<input id="eTitle" maxlength="120" required></label>
+    <div class="row">
+      <label>Priority<select id="ePriority"><option value="low">Low</option><option value="medium">Medium</option><option value="high">High</option></select></label>
+      <label>Due date<input id="eDue" type="date"></label>
+    </div>
+    <label>Category<input id="eCategory" maxlength="24"></label>
+    <div class="actions"><button value="cancel" class="ghost">Cancel</button><button value="save" class="pri">Save changes</button></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
